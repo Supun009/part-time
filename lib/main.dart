@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:parttime/core/admob/provider.dart';
 import 'package:parttime/core/cubits/add_cubit/add_cubit_cubit.dart';
 import 'package:parttime/core/cubits/app_user/app_user_cubit.dart';
 import 'package:parttime/core/cubits/theme-cubit/theme_cubit.dart';
@@ -9,7 +8,7 @@ import 'package:parttime/core/pages/spalsh_screen.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:parttime/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:parttime/init_dependancies.dart';
-import 'package:provider/provider.dart';
+import 'package:upgrader/upgrader.dart';
 import 'features/auth/presentation/bloc/auth_bloc_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -18,9 +17,8 @@ void main() async {
   MobileAds.instance.initialize();
   await initDependancies();
   await dotenv.load(fileName: ".env");
-  runApp(MultiProvider(
+  runApp(MultiBlocProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => AdProvider()),
       BlocProvider(create: (_) => serviceLocator<AuthBlocBloc>()),
       BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
       BlocProvider(create: (_) => serviceLocator<JobBloc>()),
@@ -58,8 +56,8 @@ class _MyAppState extends State<MyApp> {
             : ThemeData.light();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'part time',
+        title: 'part time jobs',
         theme: theme,
-        home: const SplashScreen());
+        home: UpgradeAlert(child: const SplashScreen()));
   }
 }

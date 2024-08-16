@@ -71,8 +71,9 @@ Future<void> initDependancies() async {
 
 // const String baseUrl = 'http://parttimejobs.ap-south-1.elasticbeanstalk.com';
 // const String baseUrl = 'http://192.168.180.61:3000';
-// const String baseUrl = 'http://10.0.2.2';
-const String baseUrl = 'http://34.93.158.224:80';
+// const String baseUrl = 'http://10.0.2.2:3000';
+const String baseUrl = 'http://34.47.154.224:80';
+// const String baseUrl = 'http://34.93.158.224:80';
 
 void _initAuth() {
   serviceLocator.registerFactory<AuthRemoteDataSourse>(

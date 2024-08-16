@@ -131,7 +131,7 @@ class _JobPostPageState extends State<JobPostPage> {
                         const SizedBox(height: 20),
                         JobEditor(
                           controller: titlecontroller,
-                          hintText: 'Job tuitle',
+                          hintText: 'Job title',
                           maxLines: null,
                           maxLength: 50,
                         ),

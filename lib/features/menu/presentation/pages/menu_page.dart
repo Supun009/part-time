@@ -23,7 +23,8 @@ class _MenuPageState extends State<MenuPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          title: const Text('Log out', style: TextStyle(fontSize: 18)),
+          title: const Text('Log out',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

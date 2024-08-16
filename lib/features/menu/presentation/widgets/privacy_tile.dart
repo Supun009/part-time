@@ -25,8 +25,10 @@ class PrivacyTile extends StatelessWidget {
             Center(
               child: Text(
                 privacy['title'],
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue),
               ),
             ),
             const SizedBox(height: 15),

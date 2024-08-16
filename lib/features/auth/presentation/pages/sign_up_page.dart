@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:parttime/core/entities/widgets/loader.dart';
 import 'package:parttime/core/utills/show_snac_bar.dart';
 import 'package:parttime/features/auth/presentation/bloc/auth_bloc_bloc.dart';
 import 'package:parttime/features/auth/presentation/widgets/auth_button.dart';
 import 'package:parttime/features/auth/presentation/widgets/auth_field.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:parttime/features/menu/presentation/pages/terms_and_conditions_page.dart';
 
 class SignUpPage extends StatefulWidget {
   final void Function()? onTap;
@@ -26,7 +25,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final nameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isTermsAccepted = false;
-  final Uri _url = Uri.parse('https://www.google.com');
 
   @override
   void dispose() {
@@ -102,10 +100,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           },
                         ),
                         GestureDetector(
-                          onTap: () async {
-                            if (!await launchUrl(_url)) {
-                              throw Exception('Could not launch $_url');
-                            }
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const TermsAndConditionsPage(),
+                                ));
                           },
                           child: Text.rich(
                             TextSpan(

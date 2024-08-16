@@ -26,8 +26,10 @@ class TermsTile extends StatelessWidget {
             Center(
               child: Text(
                 term.title,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue),
               ),
             ),
             Text(

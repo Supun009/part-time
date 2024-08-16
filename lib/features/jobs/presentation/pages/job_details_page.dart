@@ -48,7 +48,10 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          title: const Text('Report Job'),
+          title: const Text(
+            'Report Job',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -121,7 +124,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
         return AlertDialog(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           title: Text(
             'Delete Job',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -149,23 +152,17 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text(
+              child: const Text(
                 'Cancel',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error,
-                foregroundColor: Theme.of(context).colorScheme.onError,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
+            TextButton(
+              child: const Text(
+                'Delete',
               ),
-              child: const Text('Delete'),
               onPressed: () {
                 context
                     .read<JobBloc>()
@@ -178,6 +175,11 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
