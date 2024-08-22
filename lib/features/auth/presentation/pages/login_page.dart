@@ -66,6 +66,7 @@ class _LoginpageState extends State<Loginpage> {
                     AuthField(
                       hintText: 'Pasword',
                       controller: passwordController,
+                      isObscureText: true,
                     ),
                     const SizedBox(height: 15),
                     AuthButton(

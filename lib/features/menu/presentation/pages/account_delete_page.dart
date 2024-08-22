@@ -22,7 +22,10 @@ class _ReasonSelectionPageState extends State<ReasonSelectionPage> {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.secondary,
           title: const Text('Delete Account'),
-          content: const Text('Are you sure you want to delete your account?'),
+          content: Text(
+            'Are you sure you want to delete your account?',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
           actions: <Widget>[
             TextButton(
               child: const Text('Cancel'),

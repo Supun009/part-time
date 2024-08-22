@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "154809498776",
+    "project_id": "part-time-jobs-9e6c2",
+    "storage_bucket": "part-time-jobs-9e6c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154809498776:android:bc47e98a6947942d66a4ed",
+        "android_client_info": {
+          "package_name": "com.example.parttime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu4C7emzAD8l2pvTLqjmPomfcmr1q6QoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

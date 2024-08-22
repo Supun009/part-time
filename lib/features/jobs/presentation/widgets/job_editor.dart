@@ -17,6 +17,7 @@ class JobEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         controller: controller,
+        textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           hintText: hintText,
         ),

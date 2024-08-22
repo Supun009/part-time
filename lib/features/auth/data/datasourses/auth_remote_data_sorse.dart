@@ -95,9 +95,9 @@ class AuthRemoteDataSorseImpl implements AuthRemoteDataSourse {
           'Content-Type': 'application/json',
           'x-auth-token': token,
         },
-      );
-      final resBody = jsonDecode(res.body) as Map<String, dynamic>;
+      ).timeout(const Duration(seconds: 5));
 
+      final resBody = jsonDecode(res.body) as Map<String, dynamic>;
       if (res.statusCode != 200) {
         return Left(AppFailure(resBody['msg']));
       }

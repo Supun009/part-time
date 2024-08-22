@@ -1,22 +1,31 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:parttime/core/cubits/add_cubit/add_cubit_cubit.dart';
 import 'package:parttime/core/cubits/app_user/app_user_cubit.dart';
 import 'package:parttime/core/cubits/theme-cubit/theme_cubit.dart';
+import 'package:parttime/core/notification/notification_service.dart';
 import 'package:parttime/core/pages/spalsh_screen.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:parttime/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:parttime/init_dependancies.dart';
 import 'package:upgrader/upgrader.dart';
 import 'features/auth/presentation/bloc/auth_bloc_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('Handling a background message: ${message.messageId}');
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+  await Firebase.initializeApp();
+  await NotificationService().init();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await initDependancies();
-  await dotenv.load(fileName: ".env");
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (_) => serviceLocator<AuthBlocBloc>()),

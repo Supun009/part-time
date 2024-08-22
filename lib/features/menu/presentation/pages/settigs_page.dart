@@ -69,47 +69,47 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.notifications,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+            // Container(
+            //   padding: const EdgeInsets.all(10),
+            //   width: double.infinity,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Row(
+            //         children: [
+            //           Icon(
+            //             Icons.notifications,
+            //             color: Theme.of(context).colorScheme.primary,
+            //           ),
 
-                      // Icon for Dark Mode
-                      const SizedBox(width: 10),
-                      const Text(
-                        'Notification',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Switch(
-                    value: isNotifion,
-                    onChanged: (value) {
-                      setState(() {
-                        isNotifion = value;
-                      });
-                    },
-                    activeColor: Colors
-                        .blue.shade300, // Color of the thumb when switch is on
-                    activeTrackColor: Theme.of(context)
-                        .colorScheme
-                        .primary, // Color of the track when switch is on
-                    inactiveThumbColor:
-                        Colors.grey, // Color of the thumb when switch is off
-                    inactiveTrackColor: Colors.grey[300],
-                  )
-                ],
-              ),
-            ),
+            //           // Icon for Dark Mode
+            //           const SizedBox(width: 10),
+            //           const Text(
+            //             'Notification',
+            //             style: TextStyle(
+            //                 fontSize: 20, fontWeight: FontWeight.bold),
+            //           ),
+            //         ],
+            //       ),
+            //       Switch(
+            //         value: isNotifion,
+            //         onChanged: (value) {
+            //           setState(() {
+            //             isNotifion = value;
+            //           });
+            //         },
+            //         activeColor: Colors
+            //             .blue.shade300, // Color of the thumb when switch is on
+            //         activeTrackColor: Theme.of(context)
+            //             .colorScheme
+            //             .primary, // Color of the track when switch is on
+            //         inactiveThumbColor:
+            //             Colors.grey, // Color of the thumb when switch is off
+            //         inactiveTrackColor: Colors.grey[300],
+            //       )
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

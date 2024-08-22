@@ -5,7 +5,7 @@ class UserModel extends User {
     required super.id,
     required super.email,
     required super.name,
-    required super.token,
+    // required super.token,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -13,7 +13,7 @@ class UserModel extends User {
       id: map['_id'] ?? '',
       email: map['email'] ?? '',
       name: map['name'] ?? '',
-      token: map['token'] ?? '',
+      // token: map['token'] ?? '',
     );
   }
 }

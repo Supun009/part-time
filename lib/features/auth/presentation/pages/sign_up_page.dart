@@ -38,29 +38,29 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Form(
-            key: formKey,
-            child: BlocConsumer<AuthBlocBloc, AuthBlocState>(
-              listener: (context, state) {
-                if (state is Authfailure) {
-                  showSnacBar(context, state.message);
-                } else if (state is AuthSignUpSuccess) {
-                  showSnacBar(context, state.message);
-                }
-              },
-              builder: (context, state) {
-                if (state is AuthLoading) {
-                  return const Loader();
-                }
-                if (state is AuthSignUpSuccess) {
-                  emailController.clear();
-                  passwordController.clear();
-                  nameController.clear();
-                }
-                return Column(
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Form(
+          key: formKey,
+          child: BlocConsumer<AuthBlocBloc, AuthBlocState>(
+            listener: (context, state) {
+              if (state is Authfailure) {
+                showSnacBar(context, state.message);
+              } else if (state is AuthSignUpSuccess) {
+                showSnacBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              if (state is AuthLoading) {
+                return const Loader();
+              }
+              if (state is AuthSignUpSuccess) {
+                emailController.clear();
+                passwordController.clear();
+                nameController.clear();
+              }
+              return SingleChildScrollView(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 50),
@@ -85,6 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     AuthField(
                       hintText: 'Password',
                       controller: passwordController,
+                      isObscureText: true,
                     ),
                     const SizedBox(height: 15),
                     Row(
@@ -159,9 +160,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           ])),
                     )
                   ],
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

@@ -127,10 +127,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
           backgroundColor: Theme.of(context).colorScheme.secondary,
           title: Text(
             'Delete Job',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.error,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           content: SingleChildScrollView(
             child: ListBody(
@@ -305,6 +302,17 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                '⚠️ Please be aware of scams. Verify the job details and employer before proceeding.',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Colors.redAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const SizedBox(height: 15),
             const Center(
               child: BannerAdWidget(),
             ),
