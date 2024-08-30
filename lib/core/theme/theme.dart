@@ -10,7 +10,9 @@ class AppTheme {
         ),
         borderRadius: BorderRadius.circular(10),
       );
-  static final darkThemeMode = ThemeData.dark().copyWith(
+  static final darkThemeMode = ThemeData.dark(
+    useMaterial3: true,
+  ).copyWith(
     brightness: Brightness.dark,
     primaryColor: AppPallete.primaryColor,
     colorScheme: ColorScheme.dark(
@@ -65,7 +67,9 @@ class AppTheme {
     ),
   );
 
-  static final lightThemeMode = ThemeData.light().copyWith(
+  static final lightThemeMode = ThemeData.light(
+    useMaterial3: true,
+  ).copyWith(
     brightness: Brightness.light,
     primaryColor: LightTheme.primaryColor,
     colorScheme: ColorScheme.light(

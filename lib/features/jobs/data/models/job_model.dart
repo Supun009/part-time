@@ -10,12 +10,14 @@ class JobModel extends Job {
     required super.contactInfo,
     required super.jobId,
     required super.createdAt,
+    required super.category,
   });
 
   factory JobModel.fromMap(Map<String, dynamic> map) {
     return JobModel(
       email: map['email'] ?? '',
       title: map['title'] ?? '',
+      category: map['category'] ?? '',
       description: map['description'] ?? '',
       salaryRate: map['salary'] ?? '',
       location: map['location'] ?? '',

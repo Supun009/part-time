@@ -5,6 +5,7 @@ sealed class JobEvent {}
 
 final class JobUpload extends JobEvent {
   final String title;
+  final String category;
   final String description;
   final String salaryRate;
   final String locaion;
@@ -12,6 +13,7 @@ final class JobUpload extends JobEvent {
 
   JobUpload({
     required this.title,
+    required this.category,
     required this.description,
     required this.salaryRate,
     required this.locaion,
@@ -22,6 +24,7 @@ final class JobUpload extends JobEvent {
 final class JobEditEvent extends JobEvent {
   final String jobId;
   final String title;
+  final String category;
   final String description;
   final String salaryRate;
   final String locaion;
@@ -30,6 +33,7 @@ final class JobEditEvent extends JobEvent {
   JobEditEvent({
     required this.jobId,
     required this.title,
+    required this.category,
     required this.description,
     required this.salaryRate,
     required this.locaion,
@@ -74,3 +78,5 @@ final class JobReportByidevent extends JobEvent {
     required this.jobId,
   });
 }
+
+final class JobcateoriesLoadEvent extends JobEvent {}

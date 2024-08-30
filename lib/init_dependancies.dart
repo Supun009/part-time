@@ -2,12 +2,14 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:parttime/core/cubits/add_cubit/add_cubit_cubit.dart';
 import 'package:parttime/core/cubits/app_user/app_user_cubit.dart';
+import 'package:parttime/core/cubits/category/category_cubit.dart';
 import 'package:parttime/core/cubits/theme-cubit/theme_cubit.dart';
 import 'package:parttime/core/datasource/auth_ocal_data_source.dart';
 import 'package:parttime/core/network/connection_checker.dart';
 import 'package:parttime/features/auth/data/repository/auth_repository_implements.dart';
 import 'package:parttime/features/auth/domain/repository/auth_repository.dart';
 import 'package:parttime/features/auth/domain/usecase/current_user.dart';
+import 'package:parttime/features/jobs/domain/usecase/get_categories_usecase.dart';
 import 'package:parttime/features/jobs/domain/usecase/job_report_usecase.dart';
 import 'package:parttime/features/menu/domain/uscase/delete_user_usecase.dart';
 import 'package:parttime/features/auth/domain/usecase/user_login.dart';
@@ -54,6 +56,10 @@ Future<void> initDependancies() async {
     ),
   );
 
+  serviceLocator.registerLazySingleton(
+    () => CategoryCubit(),
+  );
+
   serviceLocator.registerFactory(
     () => InternetConnection(),
   );
@@ -69,7 +75,9 @@ Future<void> initDependancies() async {
   _initMenu();
 }
 
-const String baseUrl = 'http://34.47.154.224:80';
+// const String baseUrl = 'http://35.207.195.145:80';
+const String baseUrl = 'http://10.0.2.2:3000';
+// const String baseUrl = 'https://parttimejobs.web.lk';
 
 void _initAuth() {
   serviceLocator.registerFactory<AuthRemoteDataSourse>(
@@ -166,6 +174,12 @@ void _initJob() {
   );
 
   serviceLocator.registerFactory(
+    () => GetCategoriesUsecase(
+      jobRemoteRepository: serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
     () => JobBloc(
       uploadJobUsecase: serviceLocator(),
       getAllJobsUsecase: serviceLocator(),
@@ -174,6 +188,8 @@ void _initJob() {
       editJobUsecase: serviceLocator(),
       searchJobsUsecase: serviceLocator(),
       reportJobUsecase: serviceLocator(),
+      getCategoriesUsecase: serviceLocator(),
+      categoryCubit: serviceLocator(),
     ),
   );
 }

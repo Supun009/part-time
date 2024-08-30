@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parttime/core/cubits/category/category_cubit.dart';
 import 'package:parttime/core/entities/models/job.dart';
 import 'package:parttime/core/entities/widgets/loader.dart';
+import 'package:parttime/core/theme/app_pallete.dart';
 import 'package:parttime/core/utills/show_snac_bar.dart';
+import 'package:parttime/features/jobs/domain/entities/category.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
+import 'package:parttime/features/jobs/presentation/widgets/category_clip.dart';
 import 'package:parttime/features/jobs/presentation/widgets/job_editor.dart';
 
 class JobPostPage extends StatefulWidget {
@@ -25,7 +29,8 @@ class _JobPostPageState extends State<JobPostPage> {
   final TextEditingController salarycontroller = TextEditingController();
   final TextEditingController locationecontroller = TextEditingController();
   final TextEditingController contactinfocontroller = TextEditingController();
-  List<String> selectedTopic = [];
+  List<String> selectedCategories = [];
+  bool isCategoryValid = true;
   final formkey = GlobalKey<FormState>();
 
   @override
@@ -37,6 +42,17 @@ class _JobPostPageState extends State<JobPostPage> {
       salarycontroller.text = widget.job!.salaryRate;
       locationecontroller.text = widget.job!.location;
       contactinfocontroller.text = widget.job!.contactInfo;
+    }
+  }
+
+  void addCategories(String categoryname) {
+    if (selectedCategories.contains(categoryname)) {
+      selectedCategories.remove(categoryname);
+    } else if (selectedCategories.isEmpty) {
+      selectedCategories.add(categoryname);
+    } else {
+      selectedCategories.clear();
+      selectedCategories.add(categoryname);
     }
   }
 
@@ -59,14 +75,21 @@ class _JobPostPageState extends State<JobPostPage> {
               onPressed: () {
                 if (widget.isMyjobpage != true) {
                   if (formkey.currentState!.validate()) {
-                    context.read<JobBloc>().add(
-                          JobUpload(
-                              title: titlecontroller.text,
-                              description: jobdescription.text,
-                              salaryRate: salarycontroller.text,
-                              locaion: locationecontroller.text,
-                              contactinfo: contactinfocontroller.text),
-                        );
+                    if (selectedCategories.isEmpty) {
+                      isCategoryValid = false;
+                      setState(() {});
+                      print(isCategoryValid);
+                    } else {
+                      context.read<JobBloc>().add(
+                            JobUpload(
+                                category: selectedCategories[0],
+                                title: titlecontroller.text,
+                                description: jobdescription.text,
+                                salaryRate: salarycontroller.text,
+                                locaion: locationecontroller.text,
+                                contactinfo: contactinfocontroller.text),
+                          );
+                    }
 
                     // Navigator.push(
                     //     context,
@@ -76,15 +99,21 @@ class _JobPostPageState extends State<JobPostPage> {
                   }
                 } else {
                   if (formkey.currentState!.validate()) {
-                    context.read<JobBloc>().add(
-                          JobEditEvent(
-                              jobId: widget.job!.jobId,
-                              title: titlecontroller.text,
-                              description: jobdescription.text,
-                              salaryRate: salarycontroller.text,
-                              locaion: locationecontroller.text,
-                              contactinfo: contactinfocontroller.text),
-                        );
+                    if (selectedCategories.isEmpty) {
+                      isCategoryValid = false;
+                      setState(() {});
+                    } else {
+                      context.read<JobBloc>().add(
+                            JobEditEvent(
+                                category: selectedCategories[0],
+                                jobId: widget.job!.jobId,
+                                title: titlecontroller.text,
+                                description: jobdescription.text,
+                                salaryRate: salarycontroller.text,
+                                locaion: locationecontroller.text,
+                                contactinfo: contactinfocontroller.text),
+                          );
+                    }
 
                     // Navigator.push(
                     //     context,
@@ -143,6 +172,51 @@ class _JobPostPageState extends State<JobPostPage> {
                         maxLength: 500,
                       ),
                       const SizedBox(height: 10),
+                      BlocBuilder<CategoryCubit, CategoryState>(
+                        builder: (context, state) {
+                          if (state is CategoryInitial) {
+                            return SizedBox();
+                          }
+                          if (state is CategoriesState) {
+                            return SizedBox(
+                              height: 40,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: state.categoryList.length,
+                                      itemBuilder: (context, index) {
+                                        final JobCategory category =
+                                            state.categoryList[index];
+
+                                        return CategoryClip(
+                                          isCategoryValid: isCategoryValid,
+                                          color: selectedCategories
+                                                  .contains(category.name)
+                                              ? WidgetStatePropertyAll(
+                                                  AppPallete.accentColor)
+                                              : WidgetStatePropertyAll(
+                                                  Theme.of(context)
+                                                      .inputDecorationTheme
+                                                      .fillColor),
+                                          onTap: () {
+                                            addCategories(category.name);
+                                            setState(() {});
+                                          },
+                                          categoryName: category.name,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                          return SizedBox();
+                        },
+                      ),
+                      const SizedBox(height: 20),
                       JobEditor(
                         controller: salarycontroller,
                         hintText: 'Salary rate',

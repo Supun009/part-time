@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parttime/core/cubits/category/category_cubit.dart';
 import 'package:parttime/features/jobs/domain/usecase/edit_job_usecase.dart';
+import 'package:parttime/features/jobs/domain/entities/category.dart';
 import 'package:parttime/features/jobs/domain/usecase/get_all_jobs_usecase.dart';
+import 'package:parttime/features/jobs/domain/usecase/get_categories_usecase.dart';
 import 'package:parttime/features/jobs/domain/usecase/get_user_jobs.dart';
 import 'package:parttime/features/jobs/domain/usecase/job_report_usecase.dart';
 import 'package:parttime/features/jobs/domain/usecase/remove_jobs_by_id.dart';
@@ -14,6 +17,7 @@ part 'job_event.dart';
 part 'job_state.dart';
 
 class JobBloc extends Bloc<JobEvent, JobState> {
+  final CategoryCubit _categoryCubit;
   final UploadJobUsecase _uploadJobUsecase;
   final GetAllJobsUsecase _getAllJobsUsecase;
   final GetUSerJobsUsecase _getUSerJobsUsecase;
@@ -21,6 +25,7 @@ class JobBloc extends Bloc<JobEvent, JobState> {
   final EditJobUsecase _editJobUsecase;
   final SearchJobsUsecase _searchJobsUsecase;
   final ReportJobUsecase _reportJobUsecase;
+  final GetCategoriesUsecase _getCategoriesUsecase;
   JobBloc({
     required UploadJobUsecase uploadJobUsecase,
     required GetAllJobsUsecase getAllJobsUsecase,
@@ -29,6 +34,8 @@ class JobBloc extends Bloc<JobEvent, JobState> {
     required SearchJobsUsecase searchJobsUsecase,
     required EditJobUsecase editJobUsecase,
     required ReportJobUsecase reportJobUsecase,
+    required GetCategoriesUsecase getCategoriesUsecase,
+    required CategoryCubit categoryCubit,
   })  : _uploadJobUsecase = uploadJobUsecase,
         _getAllJobsUsecase = getAllJobsUsecase,
         _getUSerJobsUsecase = getUSerJobsUsecase,
@@ -36,6 +43,8 @@ class JobBloc extends Bloc<JobEvent, JobState> {
         _editJobUsecase = editJobUsecase,
         _searchJobsUsecase = searchJobsUsecase,
         _reportJobUsecase = reportJobUsecase,
+        _getCategoriesUsecase = getCategoriesUsecase,
+        _categoryCubit = categoryCubit,
         super(JobInitial()) {
     on<JobEvent>((event, emit) {
       emit(Jobloading());
@@ -47,10 +56,12 @@ class JobBloc extends Bloc<JobEvent, JobState> {
     on<JobEditEvent>(_editJob);
     on<JobSearchEvent>(_onJobsearch);
     on<JobReportByidevent>(_jobReportByid);
+    on<JobcateoriesLoadEvent>(_jobcateoriesLoadEvent);
   }
 
   void _uploadJobs(JobUpload event, Emitter<JobState> emit) async {
     final res = await _uploadJobUsecase.call(JobParams(
+      category: event.category,
       title: event.title,
       description: event.description,
       salary: event.salaryRate,
@@ -66,6 +77,7 @@ class JobBloc extends Bloc<JobEvent, JobState> {
 
   void _editJob(JobEditEvent event, Emitter<JobState> emit) async {
     final res = await _editJobUsecase.call(EditJobParams(
+      category: event.category,
       jobId: event.jobId,
       title: event.title,
       description: event.description,
@@ -126,5 +138,21 @@ class JobBloc extends Bloc<JobEvent, JobState> {
       (l) => emit(JobError(error: l.message)),
       (r) => emit(JobReportCompleted(message: r)),
     );
+  }
+
+  void _jobcateoriesLoadEvent(
+      JobcateoriesLoadEvent event, Emitter<JobState> emit) async {
+    final res = await _getCategoriesUsecase.call(NoParamas());
+
+    res.fold((l) => emit(JobError(error: l.message)),
+        (r) => _loadCategories(categories: r, emit: emit));
+  }
+
+  void _loadCategories({
+    required List<JobCategory> categories,
+    required Emitter<JobState> emit,
+  }) {
+    _categoryCubit.updatecategoryList(categories);
+    emit(JobcateoriesLoaded());
   }
 }

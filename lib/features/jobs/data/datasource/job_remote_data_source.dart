@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:fpdart/fpdart.dart';
 import 'package:parttime/core/error/app_failure.dart';
 import 'package:http/http.dart' as http;
+import 'package:parttime/features/jobs/data/models/category_model.dart';
 import 'package:parttime/features/jobs/data/models/job_model.dart';
 
 abstract interface class JobRemoteDataSource {
   Future<Either<AppFailure, String>> uploadJob({
     required String token,
     required String title,
+    required String category,
     required String description,
     required String salary,
     required String location,
@@ -19,6 +21,7 @@ abstract interface class JobRemoteDataSource {
     required String jobId,
     required String token,
     required String title,
+    required String category,
     required String description,
     required String salary,
     required String location,
@@ -26,6 +29,8 @@ abstract interface class JobRemoteDataSource {
   });
 
   Future<Either<AppFailure, List<JobModel>>> getAlljobs(String token);
+
+  Future<Either<AppFailure, List<CategoryModel>>> getCategoriList();
 
   Future<Either<AppFailure, List<JobModel>>> getUSerjobs(String userEmail);
 
@@ -79,6 +84,7 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
   Future<Either<AppFailure, String>> uploadJob(
       {required String token,
       required String title,
+      required String category,
       required String description,
       required String salary,
       required String location,
@@ -90,6 +96,7 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
             'x-auth-token': token,
           },
           body: jsonEncode({
+            'category': category,
             'title': title,
             'description': description,
             'salary': salary,
@@ -165,6 +172,7 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
     required String jobId,
     required String token,
     required String title,
+    required String category,
     required String description,
     required String salary,
     required String location,
@@ -177,6 +185,7 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
             'x-auth-token': token,
           },
           body: jsonEncode(<String, String>{
+            'category': category,
             'title': title,
             'description': description,
             'salary': salary,
@@ -247,6 +256,33 @@ class JobRemoteDataSourceImpl implements JobRemoteDataSource {
       }
 
       return Right(resbody['msg']);
+    } catch (e) {
+      return Left(AppFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<AppFailure, List<CategoryModel>>> getCategoriList() async {
+    try {
+      final res = await http.get(
+        Uri.parse('$baseUrl/api/categories'),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (res.statusCode != 200) {
+        final resBody = jsonDecode(res.body) as Map<String, dynamic>;
+        return Left(AppFailure(resBody['msg']));
+      }
+
+      var categories = await jsonDecode(res.body) as List;
+
+      List<CategoryModel> categoriList = [];
+
+      for (final category in categories) {
+        categoriList.add(CategoryModel.fromMap(category));
+      }
+
+      return Right(categoriList);
     } catch (e) {
       return Left(AppFailure(e.toString()));
     }

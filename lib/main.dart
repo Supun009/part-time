@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:parttime/core/cubits/add_cubit/add_cubit_cubit.dart';
 import 'package:parttime/core/cubits/app_user/app_user_cubit.dart';
+import 'package:parttime/core/cubits/category/category_cubit.dart';
 import 'package:parttime/core/cubits/theme-cubit/theme_cubit.dart';
 import 'package:parttime/core/notification/notification_service.dart';
 import 'package:parttime/core/pages/spalsh_screen.dart';
@@ -30,6 +31,7 @@ void main() async {
     providers: [
       BlocProvider(create: (_) => serviceLocator<AuthBlocBloc>()),
       BlocProvider(create: (_) => serviceLocator<AppUserCubit>()),
+      BlocProvider(create: (_) => serviceLocator<CategoryCubit>()),
       BlocProvider(create: (_) => serviceLocator<JobBloc>()),
       BlocProvider(create: (_) => serviceLocator<MenuBloc>()),
       BlocProvider(create: (_) => serviceLocator<ThemeCubit>()),
@@ -52,6 +54,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     context.read<AuthBlocBloc>().add(AppStarted());
+    context.read<JobBloc>().add(JobcateoriesLoadEvent());
   }
 
   // This widget is the root of your application.

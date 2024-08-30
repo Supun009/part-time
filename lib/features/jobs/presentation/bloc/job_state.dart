@@ -60,3 +60,5 @@ final class JobReportCompleted extends JobState {
     required this.message,
   });
 }
+
+final class JobcateoriesLoaded extends JobState {}

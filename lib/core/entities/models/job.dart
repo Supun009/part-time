@@ -2,6 +2,7 @@ class Job {
   final String jobId;
   final String email;
   final String title;
+  final String category;
   final String description;
   final String salaryRate;
   final String location;
@@ -11,6 +12,7 @@ class Job {
   Job({
     required this.email,
     required this.title,
+    required this.category,
     required this.description,
     required this.salaryRate,
     required this.location,

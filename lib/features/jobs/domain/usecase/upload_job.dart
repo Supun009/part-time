@@ -12,6 +12,7 @@ class UploadJobUsecase implements UseCase<String, JobParams> {
   @override
   Future<Either<AppFailure, String>> call(JobParams params) async {
     return await jobRemoteRepository.createJob(
+      category: params.category,
       title: params.title,
       description: params.description,
       salary: params.salary,
@@ -23,6 +24,7 @@ class UploadJobUsecase implements UseCase<String, JobParams> {
 
 class JobParams {
   final String title;
+  final String category;
   final String description;
   final String salary;
   final String location;
@@ -30,6 +32,7 @@ class JobParams {
 
   JobParams({
     required this.title,
+    required this.category,
     required this.description,
     required this.salary,
     required this.location,

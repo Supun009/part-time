@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     const SizedBox(height: 15),
                     AuthField(
-                      hintText: 'Email',
+                      hintText: 'Email address',
                       controller: emailController,
                     ),
                     const SizedBox(height: 15),
