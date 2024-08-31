@@ -104,7 +104,7 @@ class JobCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.attach_money, size: 16),
+                      const Icon(Icons.money, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         job.salaryRate,

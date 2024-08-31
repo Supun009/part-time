@@ -28,7 +28,10 @@ class JobEditor extends StatelessWidget {
           FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\s\-_.@()/&]')),
         ],
         validator: (value) {
-          if (value!.isEmpty) {
+          // Trim the input value to remove leading and trailing spaces
+          String trimmedValue = value!.trim();
+
+          if (trimmedValue.isEmpty) {
             return '$hintText is missing';
           }
           // if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {

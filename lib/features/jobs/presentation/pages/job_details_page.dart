@@ -24,10 +24,13 @@ class JobDetailsPage extends StatefulWidget {
 
 class _JobDetailsPageState extends State<JobDetailsPage> {
   InterstitialAdWidget interstitialAdWidget = InterstitialAdWidget();
+  bool showContact = false;
+
   @override
   void initState() {
     super.initState();
-    interstitialAdWidget.loadInterstitialAd();
+    if (!widget.isMyjobpage!) {}
+
     _loadCurrentUser();
   }
 
@@ -174,6 +177,14 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
     );
   }
 
+  void showContactInfo() {
+    setState(() {
+      showContact = !showContact;
+    });
+
+    interstitialAdWidget.loadInterstitialAd();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -207,11 +218,12 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                   ];
                 },
               ),
-            IconButton(
-              icon: const Icon(Icons.flag),
-              onPressed: _reportJob,
-              tooltip: 'Report Job',
-            ),
+            if (!widget.isMyjobpage!)
+              IconButton(
+                icon: const Icon(Icons.flag),
+                onPressed: _reportJob,
+                tooltip: 'Report Job',
+              ),
           ],
           title: Text('Job Details',
               style: Theme.of(context)
@@ -283,16 +295,36 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                               ),
                               const SizedBox(height: 20),
                               InfoRow(
-                                icon: Icons.attach_money,
+                                icon: Icons.money,
                                 title: 'Salary rate:',
                                 value: widget.job.salaryRate,
                               ),
                               const SizedBox(height: 15),
-                              InfoRow(
-                                icon: Icons.contact_phone,
-                                title: 'Contact:',
-                                value: widget.job.contactInfo,
-                              ),
+                              showContact || widget.isMyjobpage!
+                                  ? InfoRow(
+                                      icon: Icons.contact_phone,
+                                      title: 'Contact:',
+                                      value: widget.job.contactInfo,
+                                    )
+                                  : ElevatedButton(
+                                      onPressed: showContactInfo,
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.blue),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Contact',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ],
+                                      ))
                             ],
                           ),
                         ),

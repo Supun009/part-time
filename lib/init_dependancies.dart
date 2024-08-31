@@ -75,9 +75,8 @@ Future<void> initDependancies() async {
   _initMenu();
 }
 
-// const String baseUrl = 'http://35.207.195.145:80';
-const String baseUrl = 'http://10.0.2.2:3000';
-// const String baseUrl = 'https://parttimejobs.web.lk';
+// const String baseUrl = 'http://10.0.2.2:3000';
+const String baseUrl = 'https://parttimejobs.web.lk';
 
 void _initAuth() {
   serviceLocator.registerFactory<AuthRemoteDataSourse>(
