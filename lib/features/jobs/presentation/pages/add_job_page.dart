@@ -9,6 +9,7 @@ import 'package:parttime/features/jobs/domain/entities/category.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:parttime/features/jobs/presentation/widgets/category_clip.dart';
 import 'package:parttime/features/jobs/presentation/widgets/job_editor.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class JobPostPage extends StatefulWidget {
   final Job? job;
@@ -76,9 +77,9 @@ class _JobPostPageState extends State<JobPostPage> {
                 if (widget.isMyjobpage != true) {
                   if (formkey.currentState!.validate()) {
                     if (selectedCategories.isEmpty) {
-                      isCategoryValid = false;
-                      setState(() {});
-                      print(isCategoryValid);
+                      setState(() {
+                        isCategoryValid = false;
+                      });
                     } else {
                       context.read<JobBloc>().add(
                             JobUpload(
@@ -100,8 +101,9 @@ class _JobPostPageState extends State<JobPostPage> {
                 } else {
                   if (formkey.currentState!.validate()) {
                     if (selectedCategories.isEmpty) {
-                      isCategoryValid = false;
-                      setState(() {});
+                      setState(() {
+                        isCategoryValid = false;
+                      });
                     } else {
                       context.read<JobBloc>().add(
                             JobEditEvent(
@@ -125,7 +127,7 @@ class _JobPostPageState extends State<JobPostPage> {
               },
               icon: const Icon(Icons.done))
         ],
-        title: Text('Post job',
+        title: Text(S.of(context).postjob,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
@@ -160,14 +162,14 @@ class _JobPostPageState extends State<JobPostPage> {
                       const SizedBox(height: 20),
                       JobEditor(
                         controller: titlecontroller,
-                        hintText: 'Job title',
+                        hintText: S.of(context).jobtitle,
                         maxLines: 1,
                         maxLength: 50,
                       ),
                       const SizedBox(height: 10),
                       JobEditor(
                         controller: jobdescription,
-                        hintText: 'Job description',
+                        hintText: S.of(context).jobdescription,
                         maxLines: 5,
                         maxLength: 500,
                       ),
@@ -201,8 +203,9 @@ class _JobPostPageState extends State<JobPostPage> {
                                                       .inputDecorationTheme
                                                       .fillColor),
                                           onTap: () {
-                                            addCategories(category.name);
-                                            setState(() {});
+                                            setState(() {
+                                              addCategories(category.name);
+                                            });
                                           },
                                           categoryName: category.name,
                                         );
@@ -219,21 +222,21 @@ class _JobPostPageState extends State<JobPostPage> {
                       const SizedBox(height: 20),
                       JobEditor(
                         controller: salarycontroller,
-                        hintText: 'Salary rate',
+                        hintText: S.of(context).salaryrate,
                         maxLines: 1,
                         maxLength: 20,
                       ),
                       const SizedBox(height: 10),
                       JobEditor(
                         controller: locationecontroller,
-                        hintText: 'Location',
+                        hintText: S.of(context).location,
                         maxLines: 1,
                         maxLength: 20,
                       ),
                       const SizedBox(height: 10),
                       JobEditor(
                         controller: contactinfocontroller,
-                        hintText: 'Contact info',
+                        hintText: S.of(context).contactinfo,
                         maxLines: 1,
                         maxLength: 30,
                       ),

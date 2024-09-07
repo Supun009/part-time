@@ -4,6 +4,7 @@ import 'package:parttime/core/entities/widgets/loader.dart';
 import 'package:parttime/core/utills/show_snac_bar.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:parttime/features/jobs/presentation/widgets/job_card.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -31,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search jobs',
+        title: Text(S.of(context).searchjobs,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium

@@ -3,6 +3,8 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 import 'package:parttime/core/cubits/add_cubit/add_cubit_cubit.dart';
 import 'package:parttime/core/cubits/app_user/app_user_cubit.dart';
 import 'package:parttime/core/cubits/category/category_cubit.dart';
+import 'package:parttime/core/cubits/isFirsttime/is_firsttime_cubit.dart';
+import 'package:parttime/core/cubits/language/language_cubit.dart';
 import 'package:parttime/core/cubits/theme-cubit/theme_cubit.dart';
 import 'package:parttime/core/datasource/auth_ocal_data_source.dart';
 import 'package:parttime/core/network/connection_checker.dart';
@@ -55,9 +57,20 @@ Future<void> initDependancies() async {
       authLcalDataSource: serviceLocator(),
     ),
   );
+  serviceLocator.registerLazySingleton(
+    () => LanguageCubit(
+      authLcalDataSource: serviceLocator(),
+    ),
+  );
 
   serviceLocator.registerLazySingleton(
     () => CategoryCubit(),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => IsFirsttimeCubit(
+      authLcalDataSource: serviceLocator(),
+    ),
   );
 
   serviceLocator.registerFactory(

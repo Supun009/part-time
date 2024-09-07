@@ -14,6 +14,7 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String createdAt = _formatPostedTime(job.createdAt);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -22,6 +23,7 @@ class JobCard extends StatelessWidget {
             builder: (context) => JobDetailsPage(
               job: job,
               isMyjobpage: isMyjobpage,
+              createdAt: createdAt,
             ),
           ),
         );
@@ -121,7 +123,7 @@ class JobCard extends StatelessWidget {
                       const Icon(Icons.access_time, size: 16),
                       const SizedBox(width: 4),
                       Text(
-                        'Posted ${_formatPostedTime(job.createdAt)}',
+                        'Posted ${createdAt}',
                         style: TextStyle(
                           fontSize: 14,
                           color: Theme.of(context).colorScheme.onSurface,

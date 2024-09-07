@@ -7,6 +7,7 @@ import 'package:parttime/features/menu/presentation/pages/more_page.dart';
 import 'package:parttime/features/menu/presentation/pages/profile_page.dart';
 import 'package:parttime/features/menu/presentation/pages/settigs_page.dart';
 import 'package:parttime/features/menu/presentation/widgets/menu_tile.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -39,7 +40,9 @@ class _MenuPageState extends State<MenuPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(
+                S.of(context).cancle,
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -64,7 +67,7 @@ class _MenuPageState extends State<MenuPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         title: Text(
-          'Menu',
+          S.of(context).menu,
           style: Theme.of(context)
               .textTheme
               .titleMedium
@@ -93,7 +96,7 @@ class _MenuPageState extends State<MenuPage> {
             ),
             const SizedBox(height: 30),
             MenuTile(
-              text: 'My Profile',
+              text: S.of(context).myprofile,
               icon: Icons.person, // Added icon
               onTap: () {
                 Navigator.push(
@@ -117,7 +120,7 @@ class _MenuPageState extends State<MenuPage> {
               },
             ),
             MenuTile(
-              text: 'More',
+              text: S.of(context).more,
               icon: Icons.more_horiz, // Added icon
               onTap: () {
                 Navigator.push(
@@ -129,7 +132,7 @@ class _MenuPageState extends State<MenuPage> {
               },
             ),
             MenuTile(
-              text: 'Settings',
+              text: S.of(context).settings,
               icon: Icons.settings, // Added icon
               onTap: () {
                 Navigator.push(

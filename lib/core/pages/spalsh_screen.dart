@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parttime/core/cubits/isFirsttime/is_firsttime_cubit.dart';
+import 'package:parttime/core/pages/first_open_page.dart';
 import 'package:parttime/core/pages/route_finder_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,10 +16,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    final isFirsttime = context.read<IsFirsttimeCubit>().state;
     // Navigate to the next screen after a delay
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const RouteFinderPage(),
+        builder: (context) => isFirsttime is IsFirsttimeInitial
+            ? const FirstOpenPage()
+            : RouteFinderPage(),
       ));
     });
   }

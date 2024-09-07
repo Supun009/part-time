@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class JobEditor extends StatelessWidget {
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class JobEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        style: GoogleFonts.notoSansSinhala(),
         controller: controller,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
@@ -24,8 +26,8 @@ class JobEditor extends StatelessWidget {
         maxLines: maxLines,
         maxLength: maxLength,
         inputFormatters: [
-          // Allow letters, spaces, and specified special characters
-          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9\s\-_.@()/&]')),
+          // Allow letters, spaces, numbers, and emojis
+          FilteringTextInputFormatter.allow(RegExp(r'.*')),
         ],
         validator: (value) {
           // Trim the input value to remove leading and trailing spaces

@@ -12,6 +12,14 @@ abstract interface class AuthLcalDataSource {
   void savetheme(String theme);
 
   String? getTheme();
+
+  void savelanguage(String language);
+
+  String? getLanguage();
+
+  void saveISfirsttime(bool isFirstTime);
+
+  bool? getIsFirstTime();
 }
 
 class AuthLcalDataSourceImpl implements AuthLcalDataSource {
@@ -47,5 +55,25 @@ class AuthLcalDataSourceImpl implements AuthLcalDataSource {
   @override
   String? getTheme() {
     return _sharedPreferences.getString('Theme');
+  }
+
+  @override
+  String? getLanguage() {
+    return _sharedPreferences.getString('Language');
+  }
+
+  @override
+  void savelanguage(String language) {
+    _sharedPreferences.setString('Language', language);
+  }
+
+  @override
+  bool? getIsFirstTime() {
+    return _sharedPreferences.getBool('Showhome');
+  }
+
+  @override
+  void saveISfirsttime(bool isFirstTime) {
+    _sharedPreferences.setBool('Showhome', true);
   }
 }

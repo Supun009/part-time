@@ -4,6 +4,7 @@ import 'package:parttime/core/entities/models/user.dart';
 import 'package:parttime/features/menu/presentation/pages/account_delete_page.dart';
 import 'package:parttime/features/menu/presentation/pages/password_reset_page.dart';
 import 'package:parttime/features/menu/presentation/widgets/menu_tile.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class ProfiePage extends StatefulWidget {
   final User user;
@@ -55,7 +56,7 @@ class _ProfiePageState extends State<ProfiePage> {
                   onTap: null,
                 ),
                 MenuTile(
-                  text: 'Reset password',
+                  text: S.of(context).resetpassword,
                   icon: Icons.lock_reset, // Icon for resetting the password
                   onTap: _passwordReset,
                 ),
@@ -85,7 +86,7 @@ class _ProfiePageState extends State<ProfiePage> {
                     ));
               },
               child: Text(
-                'delete account',
+                S.of(context).deleteaccount,
                 style: Theme.of(context)
                         .textButtonTheme
                         .style

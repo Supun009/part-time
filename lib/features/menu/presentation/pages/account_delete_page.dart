@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parttime/features/auth/presentation/pages/login_or_register_page.dart';
 import 'package:parttime/features/menu/presentation/bloc/menu_bloc.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class ReasonSelectionPage extends StatefulWidget {
   const ReasonSelectionPage({super.key});
@@ -21,20 +22,20 @@ class _ReasonSelectionPageState extends State<ReasonSelectionPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Theme.of(context).colorScheme.secondary,
-          title: const Text('Delete Account'),
+          title: Text(S.of(context).deleteaccount),
           content: Text(
             'Are you sure you want to delete your account?',
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(S.of(context).cancle),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Delete'),
+              child: Text(S.of(context).delete),
               onPressed: () {
                 context.read<MenuBloc>().add(UserDeletedEvent(
                       reason: selectedReason!,
@@ -58,9 +59,9 @@ class _ReasonSelectionPageState extends State<ReasonSelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select a Reason',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-      ),
+          // title: const Text('Select a Reason',
+          //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+          ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -82,7 +83,7 @@ class _ReasonSelectionPageState extends State<ReasonSelectionPage> {
               ),
 
               TextButton(
-                child: const Text('Delete'),
+                child: Text(S.of(context).delete),
                 onPressed: () {
                   _deleteUserAccount(context);
                 },

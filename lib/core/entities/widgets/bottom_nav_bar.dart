@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentindex;
@@ -13,16 +14,20 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
         currentIndex: currentindex,
-        type: BottomNavigationBarType.fixed,
+        // type: BottomNavigationBarType.fixed,
         onTap: onTap,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Theme.of(context).colorScheme.onSurface,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.work), label: 'Jobs'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Post job'),
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.work), label: S.of(context).jobs),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search), label: S.of(context).search),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.add), label: S.of(context).postjob),
           // BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu')
+          BottomNavigationBarItem(
+              icon: Icon(Icons.menu), label: S.of(context).menu)
         ]);
   }
 }

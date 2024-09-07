@@ -13,9 +13,10 @@ class MenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
+        color: Colors.transparent,
         padding: const EdgeInsets.all(20),
         width: double.infinity,
         // decoration: BoxDecoration(

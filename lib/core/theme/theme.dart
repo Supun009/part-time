@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:parttime/core/theme/app_pallete.dart';
 
 class AppTheme {
+  static final darkTextTheme = GoogleFonts.notoSansSinhalaTextTheme(
+    ThemeData.dark().textTheme, // Use the default dark theme text colors
+  );
+
+  static final lightTextTheme = GoogleFonts.notoSansSinhalaTextTheme(
+    ThemeData.light().textTheme, // Use the default light theme text colors
+  );
+
   static _border([Color color = AppPallete.transparentColor]) =>
       OutlineInputBorder(
         borderSide: BorderSide(
@@ -46,10 +55,7 @@ class AppTheme {
       focusedBorder: _border(AppPallete.accentColor),
       errorBorder: _border(AppPallete.errorColor),
     ),
-    textTheme: const TextTheme(
-      bodyMedium:
-          TextStyle(color: AppPallete.textColor), // Dark theme text color
-    ),
+    textTheme: darkTextTheme,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppPallete.textColor,
@@ -90,6 +96,7 @@ class AppTheme {
       backgroundColor: LightTheme.backgroundColor,
       iconTheme: const IconThemeData(color: LightTheme.textColor),
     ),
+    textTheme: lightTextTheme,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: LightTheme.secondaryColor,

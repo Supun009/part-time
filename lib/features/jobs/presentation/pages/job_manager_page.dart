@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parttime/features/jobs/presentation/pages/add_job_page.dart';
 import 'package:parttime/features/jobs/presentation/pages/my_jobs_page.dart';
 import 'package:parttime/features/jobs/presentation/widgets/topics_tile.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class JobManagerPage extends StatelessWidget {
   const JobManagerPage({super.key});
@@ -10,7 +11,7 @@ class JobManagerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Job Manager',
+        title: Text(S.of(context).jobmanager,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium

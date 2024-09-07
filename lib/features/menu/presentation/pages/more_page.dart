@@ -3,6 +3,7 @@ import 'package:parttime/features/menu/presentation/pages/contact_us_page.dart';
 import 'package:parttime/features/menu/presentation/pages/privacy_page.dart';
 import 'package:parttime/features/menu/presentation/pages/terms_and_conditions_page.dart';
 import 'package:parttime/features/menu/presentation/widgets/menu_tile.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});
@@ -12,7 +13,7 @@ class MorePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'More',
+          S.of(context).more,
           style: Theme.of(context)
               .textTheme
               .titleMedium
@@ -48,7 +49,7 @@ class MorePage extends StatelessWidget {
               },
             ),
             MenuTile(
-              text: 'Contact Us',
+              text: S.of(context).contactus,
               icon: Icons.contact_mail, // Added icon
               onTap: () {
                 Navigator.push(

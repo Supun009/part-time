@@ -51,7 +51,6 @@ class _MyJobsPageState extends State<MyJobsPage> {
                     showSnacBar(context, state.error);
                   }
                   if (state is JobUploaded) {
-                    print('jobuploaded');
                     _loadJobs();
                   }
                   if (state is JobRemovedById) {

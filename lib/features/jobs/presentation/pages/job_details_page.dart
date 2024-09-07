@@ -8,14 +8,17 @@ import 'package:parttime/core/utills/show_snac_bar.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:parttime/features/jobs/presentation/pages/add_job_page.dart';
 import 'package:parttime/features/jobs/presentation/widgets/info_row.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class JobDetailsPage extends StatefulWidget {
   final Job job;
   final bool? isMyjobpage;
+  final String createdAt;
   const JobDetailsPage({
     super.key,
     required this.job,
     this.isMyjobpage,
+    required this.createdAt,
   });
 
   @override
@@ -129,7 +132,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           backgroundColor: Theme.of(context).colorScheme.secondary,
           title: Text(
-            'Delete Job',
+            S.of(context).deletejob,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           content: SingleChildScrollView(
@@ -152,16 +155,16 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text(
-                'Cancel',
+              child: Text(
+                S.of(context).cancle,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text(
-                'Delete',
+              child: Text(
+                S.of(context).delete,
               ),
               onPressed: () {
                 context
@@ -207,13 +210,13 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                 },
                 itemBuilder: (BuildContext context) {
                   return [
-                    const PopupMenuItem<String>(
+                    PopupMenuItem<String>(
                       value: 'edit',
-                      child: Text('Edit'),
+                      child: Text(S.of(context).edit),
                     ),
-                    const PopupMenuItem<String>(
+                    PopupMenuItem<String>(
                       value: 'delete',
-                      child: Text('Delete'),
+                      child: Text(S.of(context).delete),
                     ),
                   ];
                 },
@@ -225,7 +228,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                 tooltip: 'Report Job',
               ),
           ],
-          title: Text('Job Details',
+          title: Text(S.of(context).jobdescription,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -285,7 +288,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                               ),
                               const SizedBox(height: 20),
                               Text(
-                                'Description',
+                                S.of(context).description,
                                 style: Theme.of(context).textTheme.titleLarge,
                               ),
                               const SizedBox(height: 8),
@@ -296,14 +299,30 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                               const SizedBox(height: 20),
                               InfoRow(
                                 icon: Icons.money,
-                                title: 'Salary rate:',
+                                title: '${S.of(context).salaryrate}:',
                                 value: widget.job.salaryRate,
+                              ),
+                              const SizedBox(height: 15),
+                              Row(
+                                children: [
+                                  const Icon(Icons.access_time, size: 16),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    'Posted ${widget.createdAt}',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                    ),
+                                  ),
+                                ],
                               ),
                               const SizedBox(height: 15),
                               showContact || widget.isMyjobpage!
                                   ? InfoRow(
                                       icon: Icons.contact_phone,
-                                      title: 'Contact:',
+                                      title: '${S.of(context).contact}:',
                                       value: widget.job.contactInfo,
                                     )
                                   : ElevatedButton(
@@ -315,7 +334,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            'Contact',
+                                            S.of(context).contact,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium

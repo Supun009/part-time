@@ -10,6 +10,7 @@ import 'package:parttime/features/jobs/domain/entities/category.dart';
 import 'package:parttime/features/jobs/presentation/bloc/job_bloc.dart';
 import 'package:parttime/features/jobs/presentation/widgets/category_clip.dart';
 import 'package:parttime/features/jobs/presentation/widgets/job_card.dart';
+import 'package:parttime/generated/l10n.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,8 +25,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    _loadJobs();
+    final jobState = context.read<JobBloc>().state;
+    if (jobState is! JobDisplaySuccess) {
+      _loadJobs();
+    }
   }
 
   Future<void> _loadJobs() async {
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Job Feed',
+        title: Text(S.of(context).JobFeed,
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
@@ -91,8 +94,9 @@ class _HomePageState extends State<HomePage> {
                                       .inputDecorationTheme
                                       .fillColor),
                               onTap: () {
-                                addCategories(category.name);
-                                setState(() {});
+                                setState(() {
+                                  addCategories(category.name);
+                                });
                               },
                               categoryName: category.name,
                             );
@@ -137,22 +141,29 @@ class _HomePageState extends State<HomePage> {
                             return const BannerAdWidget();
                           } else {
                             final jobIndex = index - (index ~/ 5);
-                            final job = state.jobs[jobIndex];
+                            final job = filterdList[jobIndex];
+                            print(job.title);
                             return JobCard(job: job);
                           }
                         });
                   } else {
-                    return ListView.builder(
-                        itemCount: state.jobs.length + (state.jobs.length ~/ 4),
-                        itemBuilder: (context, index) {
-                          if ((index + 1) % 5 == 0) {
-                            return const BannerAdWidget();
-                          } else {
-                            final jobIndex = index - (index ~/ 5);
-                            final job = state.jobs[jobIndex];
-                            return JobCard(job: job);
-                          }
-                        });
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        context.read<JobBloc>().add(GetAllJobs());
+                      },
+                      child: ListView.builder(
+                          itemCount:
+                              state.jobs.length + (state.jobs.length ~/ 4),
+                          itemBuilder: (context, index) {
+                            if ((index + 1) % 5 == 0) {
+                              return const BannerAdWidget();
+                            } else {
+                              final jobIndex = index - (index ~/ 5);
+                              final job = state.jobs[jobIndex];
+                              return JobCard(job: job);
+                            }
+                          }),
+                    );
                   }
                 }
                 return const SizedBox();
