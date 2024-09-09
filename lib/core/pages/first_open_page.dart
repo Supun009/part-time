@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parttime/core/cubits/isFirsttime/is_firsttime_cubit.dart';
 import 'package:parttime/core/pages/route_finder_page.dart';
+import 'package:parttime/core/widgets/first_open_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class FirstOpenPage extends StatefulWidget {
@@ -34,14 +35,19 @@ class _FirstOpenPageState extends State<FirstOpenPage> {
             });
           },
           children: [
-            Container(
-              child: Center(child: Text('hello')),
+            FirstOpenWidgets(
+              tittle: 'Simply find your part time job',
+              imgPath: 'assets/images/img1.jpg',
+              height: 70,
             ),
-            Container(
-              child: Center(child: Text('hello')),
+            FirstOpenWidgets(
+              tittle: 'Post a job vacancy and find job seekers ',
+              imgPath: 'assets/images/img3.jpg',
             ),
-            Container(
-              child: Center(child: Text('hello')),
+            FirstOpenWidgets(
+              tittle: 'Get started with part time jobs LK',
+              imgPath: 'assets/images/img2.jpg',
+              height: 60,
             ),
           ],
         ),
@@ -58,7 +64,7 @@ class _FirstOpenPageState extends State<FirstOpenPage> {
                   builder: (context) => RouteFinderPage(),
                 ));
               },
-              child: Text('Start'))
+              child: Text('Get Start'))
           : Container(
               color: Colors.white,
               height: 80,

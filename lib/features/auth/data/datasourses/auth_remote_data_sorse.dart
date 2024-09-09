@@ -90,7 +90,7 @@ class AuthRemoteDataSorseImpl implements AuthRemoteDataSourse {
       {required String token}) async {
     try {
       final res = await http.get(
-        Uri.parse('$baseUrl/'),
+        Uri.parse('$baseUrl/api/user'),
         headers: {
           'Content-Type': 'application/json',
           'x-auth-token': token,
